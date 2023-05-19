@@ -1,0 +1,7 @@
+.env
+__pycache__
+.idea
+debug.log
+caches
+venv_site
+templates
