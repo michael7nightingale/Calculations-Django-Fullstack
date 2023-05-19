@@ -1,0 +1,25 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+     <div class="jumbotron">
+        <h2>Личный кабинет - {{ request.user.username }}</h2>
+        <p class="lead">Смотрите журнал вычислений и многое другое.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary btn-large">назад на главную &raquo;</a>
+        {% if request.user.is_superuser %}
+            <a href="/admin/" class="btn btn-primary btn-large">админка &raquo;</a>
+        {% endif %}
+    </div>
+
+    <div class="container">
+          <div class="content">
+              <ul>
+                  <li><h4><a class="white_text" href="{% url 'users_history' %}">История вычислений</a></h4></li>
+                  <li><h4><a class="white_text" href="{% url 'users_add_formula' %}">Добавить формулу</a></h4></li>
+                  {% if request.user.is_superuser or request.user.is_stuff  %}
+                    <li><h4><a class="white_text" href="{% url 'users_accept_formulas' %}">Предложенные формулы</a></h4></li>
+                  {% endif %}
+              </ul>
+          </div>
+    </div>
+{% endblock %}

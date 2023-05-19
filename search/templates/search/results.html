@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block settings %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Building Company, INTUITIVE">
+    <meta name="description" content="">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'main/css/nicepage.css' %}" media="screen">
+<link rel="stylesheet" href="{% static 'phy/css/mechanics.css' %}" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static 'phy/js/jquery.js' %}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static 'phy/js/nicepage.js' %}" defer=""></script>
+    <meta name="generator" content="Nicepage 4.21.5, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
+
+
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "",
+		"logo": "/images/1642125025_1-abrakadabra-fun-p-beskonechnost-chb-vektor-1.png"
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="mechanics">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body u-xl-mode" data-lang="ru">
+
+    {% endblock %}
+
+ {% block content %}
+     <a class='u-btn u-btn-submit u-btn-style' href="{% url 'main' %}">Главная</a>
+    <div>
+            <h1 class="u-text-1">{{ science }} - {{ where }}</h1>
+            {% if where == 'Формулы' %}
+                <ul>
+                {% for formula in queryset %}
+                    <li>
+                     <label>{{ formula.title }} ({{ formula.cat }})</label>
+                     <a class="u-border-2 u-border-grey-75 u-image u-image-contain u-image-default u-preserve-proportions u-image-1" href="{{ formula.get_absolute_url }}">
+                    <h6 class="">{{ formula.formula }}</h6>
+                </a>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% elif where == 'Категории' %}
+                <ul>
+                 {% for category in queryset %}
+                     <li>
+                     <a class="" href="{{ category.get_absolute_url }}">{{ category.category_name }}</a>
+                     </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+
+      </div>
+
+    {% endblock %}
+
+
+</body>

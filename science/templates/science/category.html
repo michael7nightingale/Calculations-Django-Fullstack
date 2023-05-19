@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+
+ {% block content %}
+     <div class="jumbotron">
+    <h2>{{ category.title }}</h2>
+    <p class="lead">{{ category.content }}</p>
+    <a href="{{ category.get_science_url }}" class="btn btn-primary btn-large">назад к {{ category.science.title }} &raquo;</a>
+</div>
+             <div class="">
+                 {% for f in formulas %}
+                <a class="" href="{{ f.get_absolute_url }}">
+
+                <h3 class="">{{ f.title }}</h3>
+                </a>
+                {% endfor %}
+                </div>
+    {% endblock %}

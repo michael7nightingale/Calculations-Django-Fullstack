@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    <div class="jumbotron">
+    <h2>Поиск</h2>
+    <p class="lead">Найдите формулу или раздел.</p>
+    <a href="{% url 'users_cabinet' %}" class="btn btn-primary btn-large">назад к кабинету &raquo;</a>
+</div>
+<div class="container">
+        <form method="get" style="color: #dddddd" action="{% url 'search' %}">
+             {{ form.as_p }}
+             <input type="submit" placeholder="Поиск">
+        </form>
+        <h4 class="white_text">Результат поиска</h4>
+        {% if result %}
+        {{ result|safe }}
+        {% else %}
+        <p class="white_text">Здесь появится результат поиска.</p>
+        {% endif %}
+
+</div>
+
+{% endblock %}
+
+
+
+

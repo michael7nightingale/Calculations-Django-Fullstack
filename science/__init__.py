@@ -1,0 +1,1 @@
+from science.apps import ScienceConfig

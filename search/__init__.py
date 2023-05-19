@@ -1,0 +1,1 @@
+from search.apps import SearchConfig

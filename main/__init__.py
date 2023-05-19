@@ -1,0 +1,1 @@
+from main.apps import MainConfig

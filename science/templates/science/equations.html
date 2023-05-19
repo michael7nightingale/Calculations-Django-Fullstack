@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<div class="jumbotron">
+    <h2>Системы уравнений</h2>
+    <p class="lead">Решение систем уравнений</p>
+    <a href="{% url 'science_science' science_slug='mathem' %}" class="btn btn-primary btn-large">назад к Математика &raquo;</a>
+</div>
+        <form method="post">
+                {% csrf_token %}
+                <input class='form-control' type="text" name="equation1" placeholder="Уравнение 1:">
+                <input class='form-control' type="text" name="equation2" placeholder="Уравнение 2:">
+                <input class='form-control' type="text" name="equation3" placeholder="Уравнение 3:">
+                <input class='form-control' type="text" name="equation4" placeholder="Уравнение 4:">
+                <input type="submit" name="submit" >
+            </form>
+       <h4 class="white_text">Решение: {{ result }} </h4>
+{% endblock %}

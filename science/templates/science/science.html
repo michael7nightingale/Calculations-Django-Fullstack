@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+
+ {% block content %}
+     <div class="jumbotron">
+    <h2>{{ science.title }}</h2>
+    <p class="lead">&nbsp;{{ science.content }}</p>
+    <a href="{% url 'home' %}" class="btn btn-primary btn-large">назад на главную &raquo;</a>
+</div>
+
+    <div class="container">
+        {#  <h1 class="white_text">{{ current_science. }}</h1>#}
+        <ul>{% for i in categories %}
+                <li>
+                <h5><a href="{{ i.get_absolute_url }}" class="white_text">{{ i.title  }}</a></h5>
+                </li>
+            {% endfor %}
+          </ul>
+      </div>
+    {% endblock %}
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
