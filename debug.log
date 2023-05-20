@@ -6055,3 +6055,11 @@ AttributeError: 'Category' object has no attribute 'category_name'
 2023-05-19 23:10:54,043 matplotlib   DEBUG    platform is win32
 2023-05-19 23:10:54,106 matplotlib   DEBUG    CACHEDIR=C:\Users\admin\.matplotlib
 2023-05-19 23:10:54,106 matplotlib.font_manager DEBUG    Using fontManager instance from C:\Users\admin\.matplotlib\fontlist-v330.json
+2023-05-20 13:17:49,767 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-05-20 13:17:49,875 passlib.registry DEBUG    registered 'argon2' handler: <class 'passlib.handlers.argon2.argon2'>
+2023-05-20 13:17:49,875 passlib.registry DEBUG    registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>
+2023-05-20 13:17:49,876 passlib.registry DEBUG    registered 'pbkdf2_sha1' handler: <class 'passlib.handlers.pbkdf2.pbkdf2_sha1'>
+2023-05-20 13:17:49,876 passlib.registry DEBUG    registered 'pbkdf2_sha256' handler: <class 'passlib.handlers.pbkdf2.pbkdf2_sha256'>
+2023-05-20 13:17:49,877 passlib.registry DEBUG    registered 'django_pbkdf2_sha256' handler: <class 'passlib.handlers.django.django_pbkdf2_sha256'>
+2023-05-20 13:17:52,412 matplotlib   DEBUG    CACHEDIR=C:\Users\admin\.matplotlib
+2023-05-20 13:17:52,422 matplotlib.font_manager DEBUG    Using fontManager instance from C:\Users\admin\.matplotlib\fontlist-v330.json
