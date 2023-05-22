@@ -1,3 +1,0 @@
-D:\Progs\PycharmProjects\Calculations_v2\obj\Any CPU\Debug\Calculations_v2.pyproj.CoreCompileInputs.cache
-D:\Progs\PycharmProjects\Calculations_v2\bin\Microsoft.PythonTools.WebRole.dll
-D:\Progs\PycharmProjects\Calculations_v2\bin\wfastcgi.py
