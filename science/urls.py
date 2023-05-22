@@ -11,7 +11,7 @@ urlpatterns = [
     path('mathem/category/plots/', plotsView, name='science_plots'),
     path('<slug:science_slug>/category/<slug:category_slug>/', cache_page(120)(CategoryView.as_view()), name='science_category'),
 
-    path('<slug:science_slug>/formulas/<slug:formula_slug>/', formulaView, name='science_formula'),
+    path('<slug:science_slug>/formulas/<slug:formula_slug>/', cache_page(120)(formulaView), name='science_formula'),
 
 ]
 
