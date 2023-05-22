@@ -28,6 +28,6 @@ async def test_url(url: str, n_requests: int) -> float:
 
 
 time_physics = asyncio.run(
-    test_url('http://localhost:8000/science/physics/formulas/impulse/', 1000)
+    test_url('http://localhost:8000/', 1000)
 )
 print(time_physics)
