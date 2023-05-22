@@ -62,9 +62,10 @@ class CategoryView(ListView, CommonContextMixin):
         return context
 
 
+
 @csrf_exempt
 def formulaView(request, science_slug, formula_slug):
-    context = contextBuilder.build_template(request, science_slug, formula_slug)
+    context = contextBuilder.build_template(request, formula_slug)
     formula = Formula.objects.get(slug=formula_slug)
     context.update(
         formula=formula,
