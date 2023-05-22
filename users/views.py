@@ -11,6 +11,7 @@ import logging
 
 from Calculations_v2.settings import BASE_DIR
 from package import tables, exceptions
+from science.models import Formula
 from users.forms import *
 from users.models import *
 
@@ -194,17 +195,20 @@ class AcceptFormulaView(PermissionRequiredMixin, TemplateView, UserDataMixin):
             "user": self.formulaRequest.user,
             "date": self.formulaRequest.date
                 }
-        context['request'] = AddRequestForm(data=data)
+        context['form'] = AddRequestForm(data=data)
         return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
         if 'delete' not in request.POST:
-            title = request.POST['title']
-            formula = request.POST['formula']
-            category = request.POST['category']
-            content = request.POST['content']
-
-        self.get_queryset().delete()
+            self.get_queryset().delete()
+        else:
+            data = request.POST
+            data.update(
+                science=Science.objects.get(title=data['science']),
+                category=Category.objects.get(title=data['category'])
+            )
+            newFormula = Formula.objects.create(**data)
+            newFormula.save()
         return redirect("users_accept_formulas")
 
 

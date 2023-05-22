@@ -2,6 +2,8 @@ import datetime
 import numpy as np
 import logging
 from numpy import pi, e, cos, sin     # for eval()
+from functools import lru_cache
+from frozendict import frozendict
 
 from formulas import jsonGetParams, counter
 from users.history import form_history
@@ -13,7 +15,8 @@ MathemParameters = jsonGetParams.Parameters('mathem')
 PhysicsParameters = jsonGetParams.Parameters('phy')
 
 
-def build_template(request, science_slug, formula_slug):
+@lru_cache(maxsize=1024)
+async def build_template(request, science_slug, formula_slug):
     # получение параметров
     find_mark = 'x'
     _history = 'Вы не зарегистрированы'
@@ -23,8 +26,7 @@ def build_template(request, science_slug, formula_slug):
         params, constants, functions, args = PhysicsParameters.get_params(name=formula_slug)
     elif science_slug == 'mathem':
         params, constants, functions, args = MathemParameters.get_params(name=formula_slug)
-    else:
-        raise Http
+
     logger.debug(f"Getting formula params by name: {formula_slug}")
     try:
         # переменные, которые могут поменяться если будет POST метод
@@ -68,7 +70,7 @@ def build_template(request, science_slug, formula_slug):
         message = "На ноль делить нет смысла."
     logger.debug("Forming history SUCCESS")
     logger.debug("Building context SUCCESS")
-    tab_div, tab_content_div = build_html(
+    tab_div, tab_content_div = await build_html(
         params=params,
         constants=constants,
         args=args,
@@ -85,7 +87,7 @@ def build_template(request, science_slug, formula_slug):
     }
 
 
-def build_html(params: dict,
+async def build_html(params: dict,
                constants: dict,
                args: str,
                url: str,

@@ -1,8 +1,11 @@
+import asyncio
+
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from datetime import datetime
+from asgiref.sync import async_to_sync, sync_to_async
 import logging
 
 from Calculations_v2.settings import BASE_DIR
@@ -64,7 +67,7 @@ class CategoryView(ListView, CommonContextMixin):
 
 @csrf_exempt
 def formulaView(request, science_slug, formula_slug):
-    context = contextBuilder.build_template(request, science_slug, formula_slug)
+    context = asyncio.run(contextBuilder.build_template(request, science_slug, formula_slug))
     formula = Formula.objects.get(slug=formula_slug)
     context.update(
         formula=formula,

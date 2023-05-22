@@ -2,6 +2,18 @@
 {% load static %}
 {% block content %}
 
+<script>
+    const url = 'ws://localhost:8000/ws/socket-server/'
+    let ws = new WebSocket(url);
+
+    ws.onmessage = function getMessage(e){
+        let data = JSON.parse(e.data)
+        console.log(data)
+    }
+
+</script>
+
+
 <div class="jumbotron">
     <h1>Сайт для физико-математических вычислений</h1>
 </div>
