@@ -33,11 +33,11 @@ def build_template(request, formula_slug):
             # параметры для шаблона
             find_mark = request.POST["find_mark"]
             # параметры для вычисления
-            nums_comma = request.POST["nums_comma"]
-            pattern = formula_obj.formula
+            nums_comma = int(request.POST["nums_comma"])
             nums = np.array([], dtype='float16')
             si = np.array([], dtype='float16')
-            for arg in args.replace(find_mark, ''):
+            find_args = tuple(filter(lambda x: x != find_mark, formula_obj.args))
+            for arg in find_args:
                 nums = np.append(nums, eval(request.POST[arg]))
                 si = np.append(si, float(params[arg].si[request.POST[f"{arg}si"]]))
             logger.debug("Setting calculation data SUCCESS")
@@ -51,8 +51,9 @@ def build_template(request, formula_slug):
             )
             """
             result = formula_obj.match(
-                  **dict(zip(args.replace(find_mark, ''), nums * si))
+                  **dict(zip(find_args, nums * si))
             )[0]
+            result = round(result, nums_comma)
             logger.debug(f"Calculating SUCCESS with result: {result}")
         # заносить результат в историю
 
@@ -66,16 +67,17 @@ def build_template(request, formula_slug):
 
     except (SyntaxError, NameError):
         message = "Невалидные данные."
-    except TypeError as e:
-        raise e
+    except TypeError:
         message = "Ожидаются рациональные числа."
     except ZeroDivisionError:
         message = "На ноль делить нет смысла."
+    except ArithmeticError:
+        message = "Вычислительно невозможное выражение"
     logger.debug("Forming history SUCCESS")
     logger.debug("Building context SUCCESS")
     tab_div, tab_content_div = build_html(
         params=params,
-        args=args,
+        args=formula_obj.args,
         url=request.path,
         result=str(result),
         find_mark=find_mark
@@ -90,19 +92,15 @@ def build_template(request, formula_slug):
 
 
 def build_html(params: dict,
-               args: str,
+               args: tuple,
                url: str,
                find_mark: str,
                result: str = ""):
     tab_div = ""
     tab_content_divs = ""
-    print(params)
-    print(find_mark, args)
     # формирование шаблона в питончике удобнее
     for find_ in args:
         # форматирование тега табов
-        print(find_)
-        print(params[find_])
         # если это обычный литерал
         if not params[find_].is_constant:
             if find_ == find_mark:
@@ -127,7 +125,7 @@ def build_html(params: dict,
                             "<option value=\"8\">8</option>\n"
                             "<option value=\"9\">9</option>\n"
                             "</select>")
-        for formula_argument in args.replace(find_, ''):
+        for formula_argument in filter(lambda x: x != find_mark, args):
             formula_argument_literal = params[formula_argument].literal
             options_tab = ""
             for ed in params[formula_argument].si:
@@ -148,7 +146,6 @@ def build_html(params: dict,
                                      "</select>\n"
                                      "</div>")
                 
-
         # закрываем тег таб контента для данного искомого аргумента
         if find_ == find_mark:
             find_tab_content += (f"<input type=\"text\" hidden=\"hidden\" name=\"find_mark\" value=\"{find_}\">\n"

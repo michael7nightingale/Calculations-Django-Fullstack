@@ -54,18 +54,16 @@ class BaseFormula(ABC):
         self,
         formula: str,
         name: str,
-        **kwargs,
-                 ):
+        **kwargs
+    ):
         global storage
         if name in storage:
             raise AssertionError("Name is already in the storage!")
         storage[name] = self
-        # literals_found = re.findall(r"", )
 
-        self.formula: sp.Eq = sp.simplify(self._template.replace("_", ", ".join(formula.split("="))))
-        self.args: str = "".join(kwargs.keys())
+        self.formula: sp.Eq = sp.simplify(self._template.replace("?", ", ".join(formula.split("="))))
+        self.args: tuple[str] = tuple(kwargs.keys())
         self.literals: dict[str, Literal] = dict(kwargs)
-    
 
     def __len__(self) -> int:
         return len(self.args)
@@ -79,13 +77,12 @@ class BaseFormula(ABC):
 
     @abstractmethod
     def get_formulas(self) -> Iterable[Literal]:
-       pass
-
+        pass
 
 
 class Formula(BaseFormula):
     __slots__ = ()
-    _template = "Eq(_)"
+    _template = "Eq(?)"
     
     def get_constants(self) -> Iterable[Literal]:
         return filter(
@@ -100,9 +97,7 @@ class Formula(BaseFormula):
             )
 
     def match(self, **nums):
-        print(nums)
         expr = self.formula.subs(nums)
-        print(expr)
         return sp.solve(expr)
 
 
@@ -138,6 +133,8 @@ K = Constant(si={"_": 1}, name="Dielectric constant", literal='k', value=9*10**(
 
 impulse = Formula(name='impulse', formula="p = m * V", p=Impulse, m=Mass, V=Speed)
 pressure_liquid = Formula(name='pressure_liquid', formula="p = r * g * h", p=Pressure, r=Density, h=Height, g=G)
-newton2 = Formula(name="The 2nd Newton`s law", formula="F = m * a", F=Force, m=Mass, a=Acceleration)
+newton2 = Formula(name="newton2", formula="F = m * a", F=Force, m=Mass, a=Acceleration)
+moving_proection = Formula(name='moving_proection', formula="s = x - x_0", s=Way, x=Coordinate, x_0=Coordinate)
 
 
+print(storage)
