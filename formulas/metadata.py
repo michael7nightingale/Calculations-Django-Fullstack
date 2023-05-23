@@ -2,6 +2,8 @@ import dataclasses
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from typing import Iterable
+
+import numpy as np
 from pydantic import BaseModel, Field
 import sympy as sp
 from functools import wraps
@@ -103,35 +105,39 @@ class Formula(BaseFormula):
         print(expr)
         return sp.solve(expr)
 
-    
 
 # define storage
 storage: dict[str, Formula] = {}    
 
 
+# ======================================= LITERALS ================================== #
 
- # ======================================= LITERALS ================================== # 
-
-Impulse = Literal(si = {"kg*m/s": 1, "g*m/s": 0.001}, name = "Impulse", literal="p")
-Speed = Literal(si = {"m/s": 1, "km/s": 1000}, name = "Speed", literal="V")
-Mass= Literal(si = {"kg": 1, "g": 0.001}, name = "Mass", literal="m")
+Impulse = Literal(si={"kg*m/s": 1, "g*m/s": 0.001}, name = "Impulse", literal="p")
+Speed = Literal(si={"m/s": 1, "km/s": 1000}, name = "Speed", literal="V")
+Mass = Literal(si={"kg": 1, "g": 0.001}, name = "Mass", literal="m")
 Way = Literal(si={"m": 1, "km": 1000, "sm": 0.01}, name='Way', literal="S")
 Height = Literal(si={"m": 1, "km": 1000, "sm": 0.01}, name='Height', literal="h")
 Density = Literal(si={"kg/m^3": 1}, literal="p", name="Density")
 Pressure = Literal(si={"Pa": 1, "kPa": 1000, "mPa": 0.001}, name="Pressure", literal='ro')
+Force = Literal(si={"N": 1, "kN": 1000, "mN": 0.001}, name="Force", literal='F')
+Acceleration = Literal(si={"m/s^2": 1, "km/s^2": 1000}, name="Acceleration", literal="a")
+Coordinate = Literal(si={"_": 1}, name="Coordinate", literal="")
 
 
-
- # ======================================= CONSTANTS ================================== # 
+# ======================================= CONSTANTS ================================== #
 
 G = Constant(si={"m/s^2": 1}, name="Free fall acceleration", literal='g', value=9.813)
+PI = Constant(si={"_": 1}, name="Pi", literal="pi", value=np.pi)
+K = Constant(si={"_": 1}, name="Dielectric constant", literal='k', value=9*10**(-9))
 
 
+# ======================================= FUNCTIONS ================================== #
 
-  # ======================================= FUNCTIONS ================================== # 
 
-
- # ======================================= FORMULAS ================================== # 
+# ======================================= FORMULAS ================================== #
 
 impulse = Formula(name='impulse', formula="p = m * V", p=Impulse, m=Mass, V=Speed)
 pressure_liquid = Formula(name='pressure_liquid', formula="p = r * g * h", p=Pressure, r=Density, h=Height, g=G)
+newton2 = Formula(name="The 2nd Newton`s law", formula="F = m * a", F=Force, m=Mass, a=Acceleration)
+
+
