@@ -37,6 +37,7 @@ def build_template(request, formula_slug):
             nums = np.array([], dtype='float16')
             si = np.array([], dtype='float16')
             find_args = tuple(filter(lambda x: x != find_mark, formula_obj.args))
+            print(123, find_args, find_mark, formula_obj.args)
             for arg in find_args:
                 nums = np.append(nums, eval(request.POST[arg]))
                 si = np.append(si, float(params[arg].si[request.POST[f"{arg}si"]]))
@@ -98,6 +99,7 @@ def build_html(params: dict,
                result: str = ""):
     tab_div = ""
     tab_content_divs = ""
+    print(args, find_mark)
     # формирование шаблона в питончике удобнее
     for find_ in args:
         # форматирование тега табов
@@ -125,7 +127,8 @@ def build_html(params: dict,
                             "<option value=\"8\">8</option>\n"
                             "<option value=\"9\">9</option>\n"
                             "</select>")
-        for formula_argument in filter(lambda x: x != find_mark, args):
+        for formula_argument in filter(lambda x: x != find_, args):
+            print(123123123, formula_argument)
             formula_argument_literal = params[formula_argument].literal
             options_tab = ""
             for ed in params[formula_argument].si:
