@@ -5,3 +5,7 @@ debug.log
 caches
 venv_site
 templates
+.vs
+bin
+obj
+static

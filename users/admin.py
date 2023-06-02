@@ -14,4 +14,3 @@ class ScientistAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Scientist._meta.local_fields]
     list_display_links = ('id', )
     ordering = ("id",)
-

@@ -28,7 +28,7 @@ class User(AbstractUser):
 
 
 class Scientist(models.Model):
-    plot_path = models.CharField("Путь до графика", blank=True, null=True)
+    plot_path = models.CharField("Путь до графика", blank=True, null=True, max_length=100)
     # user = models.OneToOneField(to="Scientist", unique=True,  on_delete=models.CASCADE, null=True)
 
 
