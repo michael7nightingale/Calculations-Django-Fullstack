@@ -26,11 +26,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # django-apps
     "users",
     "main",
     "science",
-    "search"
+    "search",
+    # libraries
+
 ]
 
 MIDDLEWARE = [
@@ -62,7 +64,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Calculations_v2.wsgi.application'
+# WSGI_APPLICATION = 'Calculations_v2.wsgi.application'
+ASGI_APPLICATION = "Calculations_v2.asgi.application"
 
 
 # Database
