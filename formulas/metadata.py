@@ -137,4 +137,3 @@ newton2 = Formula(name="newton2", formula="F = m * a", F=Force, m=Mass, a=Accele
 moving_proection = Formula(name='moving_proection', formula="s = x - x_0", s=Way, x=Coordinate, x_0=Coordinate)
 
 
-print(storage)
