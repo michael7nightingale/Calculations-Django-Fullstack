@@ -3,6 +3,8 @@ import numpy as np
 import logging
 from functools import lru_cache
 from numpy import pi, e, cos, sin     # for eval()
+from functools import lru_cache
+from frozendict import frozendict
 
 from formulas import counter
 from formulas.metadata import storage
@@ -75,7 +77,7 @@ def build_template(request, formula_slug):
         message = "Вычислительно невозможное выражение"
     logger.debug("Forming history SUCCESS")
     logger.debug("Building context SUCCESS")
-    tab_div, tab_content_div = build_html(
+    tab_div, tab_content_div = await build_html(
         params=params,
         args=formula_obj.args,
         url=request.path,

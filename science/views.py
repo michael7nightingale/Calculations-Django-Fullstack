@@ -1,8 +1,11 @@
+import asyncio
+
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from datetime import datetime
+from asgiref.sync import async_to_sync, sync_to_async
 import logging
 
 from Calculations_v2.settings import BASE_DIR
