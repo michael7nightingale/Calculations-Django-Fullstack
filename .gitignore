@@ -9,3 +9,10 @@ templates
 bin
 obj
 static
+main/__pycache__
+search/__pycache__
+science/__pycache__
+Calculations_v2/__pycache__
+users/__pycache__
+formulas/__pycache__
+package/__pycache__
